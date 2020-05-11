@@ -1,19 +1,42 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <button class="btn btn-primary" @click="computarClick()">Click me</button>
+    <div>Onde machucou: {{ localDoUltimoMachucado }}</div>
+    <div>Quantidade Mertiolate: {{ quantidadeMertiolate }}</div>
+    <hr />
+    <filho
+      :quantidade-clicks-do-pai="quantidadeClicks"
+      @machucou="passarMertiolate($event)"
+    />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Filho from "./components/Filho.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    Filho,
+  },
+  data() {
+    return {
+      quantidadeClicks: 0,
+      quantidadeMertiolate: 0,
+      localDoUltimoMachucado: null,
+    };
+  },
+  methods: {
+    computarClick() {
+      this.quantidadeClicks++;
+    },
+    passarMertiolate(informacoesDoEvento) {
+      this.quantidadeMertiolate++;
+      alert("buaaaaaa, " + informacoesDoEvento.localDoMachucado);
+      this.localDoUltimoMachucado = informacoesDoEvento.localDoMachucado;
+    },
+  },
+};
 </script>
 
 <style>
